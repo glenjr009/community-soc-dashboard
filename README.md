@@ -1,6 +1,6 @@
 # 🛡️ CommunitySOC AI --- Production-Grade AI Security Operations Center
 
-::: {align="center"}
+
 # 🚨 AI-Powered Community Security Operations Center
 
 ### Monitor • Analyze • Simulate • Protect
@@ -62,7 +62,7 @@ practices and modern SOC workflows.
 
 # 👨‍💻 Developer
 
-::: {align="center"}
+
 ## Glen Fernandes
 
 ### *aka **cyb3rPh03n1x***
@@ -147,6 +147,28 @@ FastAPI Backend
 
 ------------------------------------------------------------------------
 
+# 🏛️ Architecture
+
+```text
+                   ┌────────────────────────────┐
+                   │      React Frontend        │
+                   │      CommunitySOC AI       │
+                   └─────────────┬──────────────┘
+                                 │
+                           REST API
+                                 │
+                                 ▼
+                   ┌────────────────────────────┐
+                   │      FastAPI Backend       │
+                   └─────────────┬──────────────┘
+                                 │
+                ┌────────────────┴────────────────┐
+                │                                 │
+                ▼                                 ▼
+      ┌──────────────────┐             ┌──────────────────┐
+      │ OpenPhish Feed   │             │ Google Gemini AI │
+      └──────────────────┘             └──────────────────┘
+```
 # 📂 Project Structure
 
 ``` text
@@ -219,16 +241,6 @@ Never commit secrets to Git.
 -   Azure/AWS deployment
 -   Mobile support
 
-------------------------------------------------------------------------
-
-# 📸 Screenshots
-
-    assets/dashboard.png
-    assets/analyzer.png
-    assets/threat-feed.png
-    assets/simulator.png
-
-------------------------------------------------------------------------
 
 # 🤝 Contributing
 
