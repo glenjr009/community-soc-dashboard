@@ -19,7 +19,7 @@ CSS](https://img.shields.io/badge/TailwindCSS-38BDF8?style=for-the-badge&logo=ta
 Gemini](https://img.shields.io/badge/Google-Gemini_AI-4285F4?style=for-the-badge&logo=google)
 ![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker)
 ![License](https://img.shields.io/badge/License-MIT-success?style=for-the-badge)
-:::
+
 
 ------------------------------------------------------------------------
 
@@ -67,7 +67,7 @@ practices and modern SOC workflows.
 
 ### *aka **cyb3rPh03n1x***
 
-**Cybersecurity Enthusiast • Full Stack Developer • Security Researcher
+**Cybersecurity Practitioner • Full Stack Developer • SOC 
 • CTF Player**
 
 Building secure, scalable, and AI-powered cybersecurity applications
@@ -77,7 +77,7 @@ operations.
 **GitHub:** https://github.com/glenjr009
 
 **LinkedIn:** https://www.linkedin.com/in/glen-ferns/
-:::
+
 
 ------------------------------------------------------------------------
 
@@ -260,7 +260,7 @@ Licensed under the MIT License.
 
 ------------------------------------------------------------------------
 
-::: {align="center"}
+
 ## ⭐ Support
 
 If you found this project useful, please consider giving it a **Star**
@@ -276,4 +276,4 @@ on GitHub.
 cybersecurity.**
 
 GitHub: https://github.com/glenjr009/community-soc-dashboard
-:::
+
