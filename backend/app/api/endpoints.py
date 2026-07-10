@@ -1,12 +1,14 @@
 import asyncio
 from typing import List
 
-from fastapi import APIRouter
+from fastapi import APIRouter, HTTPException
 
 from app.schemas.analyzer import ScanRequest, ScanResponse
+from app.schemas.incident import IncidentCreateRequest, IncidentResponse, IncidentUpdateRequest
 from app.schemas.threat import ThreatSchema
 from app.services.ai_service import ai_service
 from app.services.feed_service import feed_service
+from app.services.incident_store import incident_store
 
 router = APIRouter()
 
@@ -41,3 +43,24 @@ async def analyze_content(payload: ScanRequest) -> ScanResponse:
         confidence=analysis["confidence"],
         detailedAnalysis=analysis["detailedAnalysis"],
     )
+
+
+@router.get("/incidents", response_model=List[IncidentResponse])
+async def list_incidents() -> List[IncidentResponse]:
+    """Return the persisted incident queue."""
+    return incident_store.list()
+
+
+@router.post("/incidents", response_model=IncidentResponse)
+async def create_incident(payload: IncidentCreateRequest) -> IncidentResponse:
+    """Create a new incident entry for the analyst queue."""
+    return incident_store.create(payload)
+
+
+@router.put("/incidents/{incident_id}", response_model=IncidentResponse)
+async def update_incident(incident_id: int, payload: IncidentUpdateRequest) -> IncidentResponse:
+    """Update the status of an existing incident."""
+    incident = incident_store.update(incident_id, payload)
+    if not incident:
+        raise HTTPException(status_code=404, detail="Incident not found")
+    return incident

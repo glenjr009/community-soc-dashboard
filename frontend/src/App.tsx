@@ -7,6 +7,7 @@ import LinkAnalyzer from './components/LinkAnalyzer'
 import Sidebar from './components/Sidebar'
 import ThreatCard from './components/ThreatCard'
 import ThreatSimulator from './components/ThreatSimulator'
+import { requestJson } from './lib/api'
 
 type Threat = {
   id: number
@@ -47,11 +48,7 @@ export default function App() {
   useEffect(() => {
     const fetchThreats = async () => {
       try {
-        const response = await fetch('http://localhost:8080/api/threats')
-        if (!response.ok) {
-          throw new Error('Failed to fetch threats')
-        }
-        const data = (await response.json()) as Threat[]
+        const data = await requestJson<Threat[]>('/api/threats')
         setThreats(data)
       } catch (error) {
         console.error('Unable to load threats from the backend:', error)
@@ -60,8 +57,18 @@ export default function App() {
       }
     }
 
+    const fetchIncidents = async () => {
+      try {
+        const data = await requestJson<Incident[]>('/api/incidents')
+        setIncidents(data)
+      } catch (error) {
+        console.error('Unable to load incidents from the backend:', error)
+      }
+    }
+
     if (isAuthenticated) {
       void fetchThreats()
+      void fetchIncidents()
     }
   }, [isAuthenticated])
 
@@ -81,10 +88,19 @@ export default function App() {
   const criticalCount = threats.filter((threat) => threat.severity === 'Critical').length
   const highCount = threats.filter((threat) => threat.severity === 'High').length
 
-  const handleStatusChange = (id: number, status: ThreatStatus) => {
-    setIncidents((currentIncidents) =>
-      currentIncidents.map((incident) => (incident.id === id ? { ...incident, status } : incident)),
-    )
+  const handleStatusChange = async (id: number, status: ThreatStatus) => {
+    try {
+      const updatedIncident = await requestJson<Incident>(`/api/incidents/${id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ status }),
+      })
+      setIncidents((currentIncidents) =>
+        currentIncidents.map((incident) => (incident.id === id ? updatedIncident : incident)),
+      )
+    } catch (error) {
+      console.error('Unable to update incident status:', error)
+    }
   }
 
   const handleAuthenticate = (profile: { name: string; role: string }) => {
@@ -102,17 +118,14 @@ export default function App() {
     let safetyTip = `Synthetic ${severityTier.toLowerCase()} inject targeting ${sector.toLowerCase()} via ${attackVector.toLowerCase()}. Contain the event, isolate affected endpoints, and notify response teams immediately.`
 
     try {
-      const response = await fetch('http://localhost:8080/api/analyze', {
+      const analysis = await requestJson<{ detailedAnalysis?: string; verdict?: string }>('/api/analyze', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ content: prompt }),
       })
 
-      if (response.ok) {
-        const analysis = (await response.json()) as { detailedAnalysis?: string; verdict?: string }
-        if (analysis.detailedAnalysis) {
-          safetyTip = `${analysis.verdict ?? severityTier} response: ${analysis.detailedAnalysis}`
-        }
+      if (analysis.detailedAnalysis) {
+        safetyTip = `${analysis.verdict ?? severityTier} response: ${analysis.detailedAnalysis}`
       }
     } catch (error) {
       console.error('Unable to fetch dynamic simulator safety tip:', error)
@@ -126,17 +139,24 @@ export default function App() {
       safetyTip,
     }
 
-    const newIncident: Incident = {
-      id: Date.now(),
-      domain: candidateDomain,
-      threatType: `${attackVector} • ${sector}`,
-      severity: severityTier,
-      status: 'New',
-      createdAt: new Date().toISOString(),
+    try {
+      const createdIncident = await requestJson<Incident>('/api/incidents', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          domain: candidateDomain,
+          threatType: `${attackVector} • ${sector}`,
+          severity: severityTier,
+          status: 'New',
+        }),
+      })
+
+      setIncidents((currentIncidents) => [createdIncident, ...currentIncidents])
+    } catch (error) {
+      console.error('Unable to persist incident:', error)
     }
 
     setThreats((currentThreats) => [generatedThreat, ...currentThreats])
-    setIncidents((currentIncidents) => [newIncident, ...currentIncidents])
   }
 
   if (!isAuthenticated) {

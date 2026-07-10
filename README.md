@@ -42,6 +42,16 @@ Built using **React**, **FastAPI**, **Google Gemini AI**, and **Docker**, the pl
 
 It serves as both an educational platform and a portfolio-ready project that simulates the workflow of a real Security Operations Center.
 
+Current workflow enhancements include:
+
+- Live threat radar with severity-based filtering and search
+- Interactive threat simulator for injecting synthetic incidents into the live feed
+- AI-assisted safety guidance generated during simulation events
+- Incident triage queue for tracking investigation states such as New, Investigating, Mitigated, and False Positive
+- Expanded analytics cards for monitored alerts, critical events, and high-severity activity
+- Lightweight analyst authentication flow with local session persistence for a more realistic SOC experience
+- In-memory incident triage and status updates backed by the FastAPI service layer
+
 ---
 
 # 🚀 Why CommunitySOC AI?

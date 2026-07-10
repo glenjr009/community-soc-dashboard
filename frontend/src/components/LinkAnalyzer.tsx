@@ -1,5 +1,7 @@
 import { useState } from 'react'
 
+import { requestJson } from '../lib/api'
+
 type AnalysisResult = {
   verdict: string
   confidence: string
@@ -26,17 +28,11 @@ export default function LinkAnalyzer() {
     setResult(null)
 
     try {
-      const response = await fetch('http://localhost:8080/api/analyze', {
+      const data = await requestJson<AnalysisResult>('/api/analyze', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ content }),
       })
-
-      if (!response.ok) {
-        throw new Error('Analysis failed')
-      }
-
-      const data = (await response.json()) as AnalysisResult
       setResult(data)
     } catch (error) {
       console.error('Unable to analyze content:', error)
