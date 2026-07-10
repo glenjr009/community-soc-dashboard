@@ -1,102 +1,69 @@
-# Production-Grade, Live AI-Driven Community Security Operations Center Console
+# 🛡️ CommunitySOC AI
+## AI-Powered Community Security Operations Center
 
-A premium full-stack cybersecurity portfolio project that transforms public cyber-safety awareness into an interactive, mission-style command experience. This application combines live threat intelligence, AI-powered analysis, and real-time simulation controls into a polished SOC dashboard designed for modern developers, security practitioners, and technical recruiters.
+> **A Production-Grade Full Stack Cybersecurity Dashboard for Live Threat Intelligence, AI-Assisted Analysis, and Interactive Security Operations**
 
-## Why this project stands out
+---
 
-This platform is more than a visual dashboard. It is a live operational workspace for:
+![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python)
+![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi)
+![React](https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript)
+![TailwindCSS](https://img.shields.io/badge/TailwindCSS-38BDF8?style=for-the-badge&logo=tailwindcss)
+![Gemini AI](https://img.shields.io/badge/Google-Gemini_AI-4285F4?style=for-the-badge&logo=google)
+![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker)
+![License](https://img.shields.io/badge/License-MIT-success?style=for-the-badge)
 
-- monitoring public-facing cyber threats in near real time
-- analyzing suspicious text and links with AI assistance
-- simulating attack scenarios to demonstrate live UI responsiveness and resilience
-- presenting a professional, security-first interface that feels like a real command console
+---
 
-## Core capabilities
+# 🚀 Project Overview
 
-### Live Threat Intelligence Radar
+**CommunitySOC AI** is a production-inspired **AI-driven Security Operations Center (SOC)** developed to bridge the gap between cybersecurity awareness and enterprise-grade security monitoring.
 
-The dashboard ingests public threat intelligence from OpenPhish and processes it through a FastAPI backend. Threat feed retrieval is optimized with a 10-minute in-memory cache on the server side, reducing unnecessary external requests while keeping the interface responsive. The feed assembly is performed asynchronously using Python's asyncio utilities, allowing multiple threat enrichment tasks to run concurrently.
+Designed as an interactive command center, the platform combines **live phishing intelligence**, **artificial intelligence**, and **real-time attack simulation** into a modern dashboard that demonstrates how contemporary SOC analysts investigate, assess, and respond to cyber threats.
 
-### Proactive AI Text & Link Analyzer
+Instead of displaying static data, CommunitySOC AI creates an operational environment where users can monitor evolving phishing campaigns, analyze suspicious content with AI assistance, simulate cyber incidents, and visualize threat metrics through a clean and responsive cyber-themed interface.
 
-Users can paste suspicious text, emails, or links into the analyzer workspace and receive a structured assessment from the Google Gemini AI engine. The application uses the Gemini 2.5 Flash model to translate complex phishing patterns into plain, citizen-friendly guidance that is clear, actionable, and easy to understand.
+This project showcases modern full-stack engineering practices, asynchronous backend processing, AI integration, responsive frontend development, and containerized deployment—making it an excellent portfolio project for cybersecurity professionals, developers, and technical recruiters.
 
-### Tactical Simulation Injector
+---
 
-The simulator widget gives the dashboard a real operational feel. Analysts can select a target sector, attack vector, and severity tier to inject synthetic threat events directly into the local feed. The dashboard immediately updates the metrics, threat card grid, and analytics surface so the experience feels live and dynamic.
+# 👨‍💻 Developer
 
-## Architecture and modern tech stack
+## Glen Fernandes
 
-| Layer | Technology | Role |
-| --- | --- | --- |
-| Frontend | React 19 + TypeScript + Vite | High-performance dashboard shell and interactive UI |
-| Styling | Tailwind CSS | Dark glassmorphism, neon cyber aesthetic, responsive layout |
-| Backend | FastAPI + Pydantic + Uvicorn | REST API orchestration, request validation, async services |
-| AI Engine | Google Gemini API | Threat and content analysis with plain-language safety guidance |
-| Infrastructure | Docker Compose | Containerized full-stack deployment workflow |
+**Cybersecurity Enthusiast • Full Stack Developer • CTF Player •**
 
-## Project structure
+🎓 B.E. Computer Science & Engineering
 
-```text
-community-soc-dashboard/
-├── backend/
-│   ├── app/
-│   ├── requirements.txt
-│   └── Dockerfile
-├── frontend/
-│   ├── src/
-│   ├── package.json
-│   └── Dockerfile
-├── docker-compose.yml
-├── README.md
-└── .gitignore
-```
+🛡️ Passionate about:
 
-## Local deployment options
+- Cybersecurity
+- Threat Intelligence
+- Digital Forensics
+- SOC Engineering
+- AI in Cybersecurity
+- Ethical Hacking
+- Full Stack Development
 
-### Option 1: Docker workflow
+### Connect with me
 
-Use Docker Compose for the fastest full-stack startup experience.
+- 💼 LinkedIn: https://www.linkedin.com/in/glen-ferns/
+- 💻 GitHub: https://github.com/glenjr009
 
-```bash
-docker compose up --build
-```
+---
 
-This launches the backend and frontend in a coordinated container environment.
+# 🎯 Objectives
 
-### Option 2: Bare-metal split terminal setup
+CommunitySOC AI aims to:
 
-#### Backend
+- 🌍 Aggregate live phishing intelligence from public threat feeds
+- 🤖 Analyze suspicious URLs, emails, and messages using Google Gemini AI
+- 📊 Present live cybersecurity metrics through an interactive dashboard
+- ⚡ Simulate realistic cyber attack scenarios
+- 📈 Demonstrate production-ready SOC workflows
+- 🔄 Showcase asynchronous backend architecture
+- 🛡️ Promote cybersecurity awareness through explainable AI
+- 🚀 Provide a professional portfolio project demonstrating full-stack security engineering
 
-```bash
-cd backend
-python -m venv .venv
-.\.venv\Scripts\activate
-pip install -r requirements.txt
-python -m uvicorn app.main:app --host 127.0.0.1 --port 8000
-```
-
-#### Frontend
-
-```bash
-cd frontend
-npm install
-npm run dev
-```
-
-The frontend will typically run on the Vite dev server port, while the backend serves the FastAPI API on port 8000.
-
-## Secure configuration note
-
-> Important: Keep all secrets, API keys, and environment variables in local .env files and never commit them to source control. The repository includes a root .gitignore rule to prevent .env files from being tracked.
-
-## Suggested next enhancements
-
-- add live charting and timeline analytics
-- connect to a broader threat feed provider
-- add authentication and role-based analyst views
-- deploy to a cloud platform such as Vercel or Azure
-
-## Summary
-
-This project represents a production-minded, security-centric dashboard that demonstrates strong full-stack engineering, resilient UI design, AI integration, and a polished portfolio-ready architecture.
+---
