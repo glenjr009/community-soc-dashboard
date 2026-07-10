@@ -1,10 +1,10 @@
 # 🛡️ CommunitySOC AI
 
-## Production-Grade AI Security Operations Center
+## 🚀 Production-Grade AI Security Operations Center
 
-Monitor • Analyze • Simulate • Protect
+> **Monitor • Analyze • Simulate • Protect**
 
-A modern, full-stack cybersecurity dashboard designed to demonstrate how AI, live threat intelligence, and interactive simulation workflows can be combined into a polished Security Operations Center experience.
+*A modern, AI-powered cybersecurity dashboard that combines live threat intelligence, artificial intelligence, and interactive incident simulation into a production-inspired Security Operations Center (SOC) experience.*
 
 ![React](https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge&logo=react)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?style=for-the-badge&logo=typescript)
@@ -17,60 +17,111 @@ A modern, full-stack cybersecurity dashboard designed to demonstrate how AI, liv
 
 ---
 
-## Project Overview
+# 📚 Table of Contents
 
-CommunitySOC AI is a production-inspired SOC platform that brings together live phishing intelligence, AI-assisted content analysis, and real-time incident simulation in a single command-console experience. It is built to showcase practical engineering decisions in cybersecurity software development, including asynchronous backend processing, responsive UI state management, AI integration, and containerized deployment.
-
-### What the platform does
-
-- Monitors public threat signals from OpenPhish in near real time
-- Analyzes suspicious URLs, messages, and text with Google Gemini AI
-- Simulates attack scenarios directly from the dashboard
-- Supports incident triage and status tracking for analyst workflows
-- Presents a tactical, dark-glass cyber interface suitable for portfolio and demo use
-
----
-
-## Recent Enhancements
-
-This release adds several professional-grade capabilities:
-
-- Live threat radar with severity-based filtering and search
-- Interactive threat simulator for injecting synthetic incidents into the live feed
-- AI-assisted safety guidance generated during simulation events
-- Incident triage queue for tracking investigation states such as New, Investigating, Mitigated, and False Positive
-- Expanded analytics cards for monitored alerts, critical events, and high-severity activity
-- Lightweight analyst authentication flow with local session persistence for a more realistic SOC experience
+- 📖 Project Overview
+- 🚀 Why CommunitySOC AI?
+- ✨ Core Features
+- 🛠️ Technology Stack
+- 🏗️ Architecture
+- 📂 Project Structure
+- 🚀 Local Setup
+- 🔐 Environment Variables
+- 🛣️ Roadmap
+- 🤝 Contributing
+- 👨‍💻 About the Developer
+- 📄 License
 
 ---
 
-## Core Features
+# 📖 Project Overview
 
-### Live Threat Intelligence Radar
+CommunitySOC AI is a production-inspired Security Operations Center (SOC) platform that brings together live phishing intelligence, AI-assisted content analysis, and real-time incident simulation into a single command-console experience.
+
+Built using **React**, **FastAPI**, **Google Gemini AI**, and **Docker**, the platform demonstrates modern cybersecurity engineering concepts such as asynchronous backend processing, responsive frontend design, AI integration, intelligent caching, and containerized deployment.
+
+It serves as both an educational platform and a portfolio-ready project that simulates the workflow of a real Security Operations Center.
+
+---
+
+# 🚀 Why CommunitySOC AI?
+
+Modern cyber threats evolve every minute, yet many educational dashboards rely on static datasets and mock interfaces.
+
+CommunitySOC AI bridges this gap by combining live threat intelligence, AI-powered security analysis, and interactive threat simulation into a realistic SOC environment.
+
+The platform demonstrates how Artificial Intelligence, modern full-stack development, and cybersecurity workflows can be integrated into a production-ready application suitable for students, recruiters, and security professionals.
+
+---
+
+# ✨ Core Features
+
+## 🌍 Live Threat Intelligence Radar
 
 - Fetches phishing intelligence from OpenPhish
-- Uses an in-memory cache to reduce excessive external requests
-- Processes enrichment asynchronously with Python concurrency tools
-- Updates the dashboard in a responsive, analyst-friendly experience
-
-### AI Threat Analyzer
-
-Users can submit suspicious links, emails, SMS content, or plain text and receive clear, practical guidance from Google Gemini AI. The analyzer is designed to translate complex threat signals into understandable, action-oriented recommendations.
-
-### Threat Simulation Engine
-
-The simulator lets users configure a target sector, attack vector, and severity tier to inject synthetic incidents into the live dashboard. This makes the platform feel operational and demonstrates real-time UI reactivity under simulated pressure.
-
-### Incident Triage Workflow
-
-The new triage queue provides a lightweight case-management workflow so simulated or observed threats can be moved through a realistic analyst lifecycle.
+- Intelligent in-memory caching
+- Concurrent enrichment using Python async processing
+- Live dashboard updates
 
 ---
 
-## Technology Stack
+## 🤖 AI-Powered Threat Analyzer
+
+Analyze:
+
+- URLs
+- Emails
+- SMS
+- Messages
+- Website links
+
+Powered by **Google Gemini 2.5 Flash** to provide:
+
+- Risk Level
+- AI Explanation
+- Phishing Indicators
+- Recommended Actions
+- Human-friendly guidance
+
+---
+
+## 🎯 Tactical Threat Simulation Engine
+
+- Simulate attack scenarios
+- Configure target sector
+- Choose attack vector
+- Select severity level
+- Watch dashboard metrics update in real time
+
+---
+
+## 📝 Incident Triage Workflow
+
+Manage investigations through a realistic analyst workflow:
+
+- New
+- Investigating
+- Mitigated
+- False Positive
+
+---
+
+# 🆕 Recent Enhancements
+
+| Feature | Description |
+|---------|-------------|
+| 🌍 Live Threat Intelligence | Retrieves phishing indicators from OpenPhish with intelligent caching. |
+| 🤖 AI Threat Analyzer | Uses Google Gemini AI to explain suspicious content. |
+| 🎯 Threat Simulation | Injects synthetic incidents into the dashboard. |
+| 📊 Analytics Dashboard | Displays live metrics and severity trends. |
+| 📝 Incident Triage | Supports analyst-style investigation workflows. |
+
+---
+
+# 🛠️ Technology Stack
 
 | Layer | Technology |
-| --- | --- |
+|--------|------------|
 | Frontend | React 19 + TypeScript + Vite |
 | Styling | Tailwind CSS |
 | Backend | FastAPI |
@@ -82,25 +133,34 @@ The new triage queue provides a lightweight case-management workflow so simulate
 
 ---
 
-## Architecture
+# 🏗️ Architecture
 
 ```text
-React Frontend
-   │
-   ▼
-REST API
-   │
-   ▼
-FastAPI Backend
-├── OpenPhish Feed
-├── Gemini AI Engine
-├── Threat Simulator
-└── Incident Triage Workflow
+                ┌──────────────────────────────┐
+                │      React Frontend          │
+                │ Dashboard • Analytics • UI   │
+                └──────────────┬───────────────┘
+                               │
+                           REST API
+                               │
+                               ▼
+                ┌──────────────────────────────┐
+                │      FastAPI Backend         │
+                └───────┬─────────┬────────────┘
+                        │         │
+                        ▼         ▼
+                OpenPhish      Gemini AI
+                        │
+                        ▼
+             Threat Processing Engine
+                        │
+                        ▼
+           Live Dashboard & Simulation
 ```
 
 ---
 
-## Project Structure
+# 📂 Project Structure
 
 ```text
 community-soc-dashboard/
@@ -113,15 +173,15 @@ community-soc-dashboard/
 
 ---
 
-## Local Setup
+# 🚀 Local Setup
 
-### Docker workflow
+## 🐳 Docker
 
 ```bash
 docker compose up --build
 ```
 
-### Backend
+## Backend
 
 ```bash
 cd backend
@@ -131,7 +191,7 @@ pip install -r requirements.txt
 uvicorn app.main:app --reload
 ```
 
-### Frontend
+## Frontend
 
 ```bash
 cd frontend
@@ -141,7 +201,7 @@ npm run dev
 
 ---
 
-## Environment Variables
+# 🔐 Environment Variables
 
 ```env
 GEMINI_API_KEY=YOUR_API_KEY
@@ -151,32 +211,46 @@ Keep secrets local and never commit them to source control.
 
 ---
 
-## Contributing
+# 🛣️ Roadmap
 
-Contributions, feature ideas, and issue reports are welcome. If you would like to contribute, please open a pull request or share a detailed proposal.
+- [ ] WebSocket live updates
+- [ ] IOC enrichment
+- [ ] Authentication & RBAC
+- [ ] Threat timeline visualization
+- [ ] PDF incident reports
+- [ ] Cloud deployment
 
 ---
 
-## License
+# 🤝 Contributing
 
-This project is licensed under the MIT License.
+Contributions, feature ideas, and issue reports are welcome.
 
-------------------------------------------------------------------------
+Fork the repository, create a feature branch, and submit a pull request.
 
+---
 
-## ⭐ Support
+# 👨‍💻 About the Developer
 
-If you found this project useful, please consider giving it a **Star**
-on GitHub.
+## Glen Fernandes *(aka **cyb3rPh03n1x**)*
 
-### 🛡️ Developed with ❤️ by
+**Cybersecurity Enthusiast • Full Stack Developer • CTF Player**
 
-# Glen Fernandes
+I enjoy building AI-powered security tools, experimenting with modern web technologies, and participating in cybersecurity competitions. My goal is to bridge cybersecurity research with practical software engineering through impactful, production-inspired applications.
 
-### aka **cyb3rPh03n1x**
+- 💻 GitHub: https://github.com/glenjr009
+- 💼 LinkedIn: https://www.linkedin.com/in/glen-ferns/
 
-**Building secure digital communities through AI-powered
-cybersecurity.**
+---
 
-GitHub: https://github.com/glenjr009/community-soc-dashboard
+# 📄 License
 
+Licensed under the **MIT License**.
+
+---
+
+# ⭐ Support
+
+If you found this project useful, consider giving it a ⭐ on GitHub.
+
+> **Building safer digital communities through AI-powered cybersecurity.**
