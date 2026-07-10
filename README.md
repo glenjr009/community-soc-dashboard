@@ -1,4 +1,4 @@
-# 🛡️ CommunitySOC AI
+# 🛡️ Community SOC AI
 
 ## 🚀 Production-Grade AI Security Operations Center
 
