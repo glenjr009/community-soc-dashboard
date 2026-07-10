@@ -1,0 +1,11 @@
+{
+  "name": "community-soc-dashboard-backend",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "python -m uvicorn app.main:app --host 0.0.0.0 --port 8000"
+  },
+  "dependencies": {
+    "axios": "^1.18.1"
+  }
+}
