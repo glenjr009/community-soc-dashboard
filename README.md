@@ -40,6 +40,7 @@ This release adds several professional-grade capabilities:
 - AI-assisted safety guidance generated during simulation events
 - Incident triage queue for tracking investigation states such as New, Investigating, Mitigated, and False Positive
 - Expanded analytics cards for monitored alerts, critical events, and high-severity activity
+- Lightweight analyst authentication flow with local session persistence for a more realistic SOC experience
 
 ---
 

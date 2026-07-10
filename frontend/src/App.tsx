@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 
+import AuthPanel from './components/AuthPanel'
 import Header from './components/Header'
 import IncidentQueue from './components/IncidentQueue'
 import LinkAnalyzer from './components/LinkAnalyzer'
@@ -34,6 +35,14 @@ export default function App() {
   const [activeView, setActiveView] = useState<'threats' | 'analyzer'>('threats')
   const [severityFilter, setSeverityFilter] = useState<SeverityFilter>('All')
   const [searchTerm, setSearchTerm] = useState('')
+  const [isAuthenticated, setIsAuthenticated] = useState(() => {
+    if (typeof window === 'undefined') {
+      return false
+    }
+
+    return window.localStorage.getItem('community-soc-auth') === 'true'
+  })
+  const [userProfile, setUserProfile] = useState<{ name: string; role: string } | null>(null)
 
   useEffect(() => {
     const fetchThreats = async () => {
@@ -51,8 +60,10 @@ export default function App() {
       }
     }
 
-    void fetchThreats()
-  }, [])
+    if (isAuthenticated) {
+      void fetchThreats()
+    }
+  }, [isAuthenticated])
 
   const filteredThreats = useMemo(() => {
     return threats.filter((threat) => {
@@ -74,6 +85,14 @@ export default function App() {
     setIncidents((currentIncidents) =>
       currentIncidents.map((incident) => (incident.id === id ? { ...incident, status } : incident)),
     )
+  }
+
+  const handleAuthenticate = (profile: { name: string; role: string }) => {
+    setUserProfile(profile)
+    setIsAuthenticated(true)
+    if (typeof window !== 'undefined') {
+      window.localStorage.setItem('community-soc-auth', 'true')
+    }
   }
 
   const handleInjectThreat = async ({ sector, attackVector, severityTier }: { sector: string; attackVector: string; severityTier: 'Critical' | 'High' | 'Medium' }) => {
@@ -120,6 +139,10 @@ export default function App() {
     setIncidents((currentIncidents) => [newIncident, ...currentIncidents])
   }
 
+  if (!isAuthenticated) {
+    return <AuthPanel onAuthenticate={handleAuthenticate} />
+  }
+
   return (
     <div className="min-h-screen bg-[radial-gradient(circle_at_top,_rgba(34,211,238,0.08),_transparent_30%),linear-gradient(135deg,_#020617,_#0f172a)] text-slate-100">
       <div className="flex min-h-screen flex-col lg:flex-row">
@@ -130,6 +153,11 @@ export default function App() {
         <main className="flex-1 p-3 md:p-4 lg:p-5">
           <div className="rounded-[28px] border border-slate-800/80 bg-slate-950/60 p-2 shadow-[0_0_80px_rgba(6,182,212,0.12)] backdrop-blur-md md:p-3">
             <Header searchTerm={searchTerm} onSearchChange={setSearchTerm} />
+            {userProfile ? (
+              <div className="border-b border-slate-800/80 bg-slate-900/70 px-5 py-3 text-sm text-slate-400">
+                Signed in as <span className="font-semibold text-cyan-300">{userProfile.name}</span> · <span className="text-emerald-300">{userProfile.role}</span>
+              </div>
+            ) : null}
 
             {activeView === 'analyzer' ? (
               <LinkAnalyzer />
