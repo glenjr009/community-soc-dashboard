@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 
 import Header from './components/Header'
+import IncidentQueue from './components/IncidentQueue'
 import LinkAnalyzer from './components/LinkAnalyzer'
 import Sidebar from './components/Sidebar'
 import ThreatCard from './components/ThreatCard'
@@ -15,9 +16,20 @@ type Threat = {
 }
 
 type SeverityFilter = 'All' | 'Critical' | 'High' | 'Medium'
+type ThreatStatus = 'New' | 'Investigating' | 'Mitigated' | 'False Positive'
+
+type Incident = {
+  id: number
+  domain: string
+  threatType: string
+  severity: 'Critical' | 'High' | 'Medium'
+  status: ThreatStatus
+  createdAt: string
+}
 
 export default function App() {
   const [threats, setThreats] = useState<Threat[]>([])
+  const [incidents, setIncidents] = useState<Incident[]>([])
   const [loading, setLoading] = useState(true)
   const [activeView, setActiveView] = useState<'threats' | 'analyzer'>('threats')
   const [severityFilter, setSeverityFilter] = useState<SeverityFilter>('All')
@@ -56,6 +68,13 @@ export default function App() {
   }, [threats, severityFilter, searchTerm])
 
   const criticalCount = threats.filter((threat) => threat.severity === 'Critical').length
+  const highCount = threats.filter((threat) => threat.severity === 'High').length
+
+  const handleStatusChange = (id: number, status: ThreatStatus) => {
+    setIncidents((currentIncidents) =>
+      currentIncidents.map((incident) => (incident.id === id ? { ...incident, status } : incident)),
+    )
+  }
 
   const handleInjectThreat = async ({ sector, attackVector, severityTier }: { sector: string; attackVector: string; severityTier: 'Critical' | 'High' | 'Medium' }) => {
     const candidateDomain = `${attackVector.toLowerCase().replace(/\s+/g, '-')}.${sector.toLowerCase().replace(/\s+/g, '-')}.sim`
@@ -88,7 +107,17 @@ export default function App() {
       safetyTip,
     }
 
+    const newIncident: Incident = {
+      id: Date.now(),
+      domain: candidateDomain,
+      threatType: `${attackVector} • ${sector}`,
+      severity: severityTier,
+      status: 'New',
+      createdAt: new Date().toISOString(),
+    }
+
     setThreats((currentThreats) => [generatedThreat, ...currentThreats])
+    setIncidents((currentIncidents) => [newIncident, ...currentIncidents])
   }
 
   return (
@@ -134,7 +163,7 @@ export default function App() {
 
                 <ThreatSimulator onInjectThreat={handleInjectThreat} />
 
-                <div className="mb-4 grid gap-3 md:grid-cols-3">
+                <div className="mb-4 grid gap-3 md:grid-cols-4">
                   <div className="rounded-2xl border border-slate-800/80 bg-slate-900/70 p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)]">
                     <p className="text-sm text-slate-400">Total Alerts Monitored</p>
                     <p className="mt-2 text-3xl font-semibold text-slate-100">{threats.length}</p>
@@ -142,6 +171,10 @@ export default function App() {
                   <div className="rounded-2xl border border-slate-800/80 bg-slate-900/70 p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)]">
                     <p className="text-sm text-slate-400">Critical Vector Count</p>
                     <p className="mt-2 text-3xl font-semibold text-rose-300">{criticalCount}</p>
+                  </div>
+                  <div className="rounded-2xl border border-slate-800/80 bg-slate-900/70 p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)]">
+                    <p className="text-sm text-slate-400">High Severity Events</p>
+                    <p className="mt-2 text-3xl font-semibold text-amber-300">{highCount}</p>
                   </div>
                   <div className="rounded-2xl border border-slate-800/80 bg-slate-900/70 p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)]">
                     <div className="flex items-center gap-2">
@@ -154,6 +187,8 @@ export default function App() {
                     <p className="mt-2 text-lg font-semibold text-emerald-300">Live radar engaged</p>
                   </div>
                 </div>
+
+                <IncidentQueue incidents={incidents} onStatusChange={handleStatusChange} />
 
                 {loading ? (
                   <div className="rounded-2xl border border-slate-800/80 bg-slate-900/70 p-6 text-sm text-slate-400">Loading threat intelligence...</div>
